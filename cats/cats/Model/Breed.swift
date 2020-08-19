@@ -15,11 +15,12 @@ struct Breed: Codable, Equatable, Identifiable {
     let id: String
     let name: String
     let temperament: String
+    let description: String
     //let weight: String
     let attributes: [BreedAttributeRated]
     
     enum CodingKeys: String, CodingKey {
-        case id, name, temperament, weight, intelligence, vocalisation, affection = "affection_level", energy = "energy_level", grooming
+        case id, name, temperament, weight, intelligence, vocalisation, affection = "affection_level", energy = "energy_level", grooming, description
     }
     static func == (lhs: Breed, rhs: Breed) -> Bool {
         return lhs.id == rhs.id
@@ -33,6 +34,7 @@ struct Breed: Codable, Equatable, Identifiable {
         id = try values.decode(String.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
         temperament = try values.decode(String.self, forKey: .temperament)
+        description = try values.decode(String.self, forKey: .description)
        // weight = try values.decode(String.self, forKey: .weight)
 
         // Attributes

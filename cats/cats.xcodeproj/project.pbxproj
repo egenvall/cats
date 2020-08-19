@@ -22,6 +22,8 @@
 		C8799F6124ED529600A4AA8C /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6024ED529600A4AA8C /* APICall.swift */; };
 		C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6624ED5D6300A4AA8C /* BreedOverviewViewModel.swift */; };
 		C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */; };
+		C8799F6D24ED992200A4AA8C /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6C24ED992200A4AA8C /* BlurView.swift */; };
+		C8799F6F24ED99ED00A4AA8C /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		C8799F6024ED529600A4AA8C /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
 		C8799F6624ED5D6300A4AA8C /* BreedOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedOverviewViewModel.swift; sourceTree = "<group>"; };
 		C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedViewModel.swift; sourceTree = "<group>"; };
+		C8799F6C24ED992200A4AA8C /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,7 @@
 		C8799F5924ED4EF000A4AA8C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C8799F6B24ED991300A4AA8C /* UI */,
 				C8799F5F24ED528800A4AA8C /* Api */,
 			);
 			path = Utility;
@@ -211,6 +216,15 @@
 				C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */,
 			);
 			path = Breed;
+			sourceTree = "<group>";
+		};
+		C8799F6B24ED991300A4AA8C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C8799F6C24ED992200A4AA8C /* BlurView.swift */,
+				C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,7 +365,9 @@
 				C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */,
 				C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */,
 				C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */,
+				C8799F6F24ED99ED00A4AA8C /* CornerRadius.swift in Sources */,
 				C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */,
+				C8799F6D24ED992200A4AA8C /* BlurView.swift in Sources */,
 				C8799F6124ED529600A4AA8C /* APICall.swift in Sources */,
 				C8799F5E24ED509100A4AA8C /* BreedWebRepository.swift in Sources */,
 			);
