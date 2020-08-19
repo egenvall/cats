@@ -11,19 +11,8 @@ struct ContentView: View {
             print("Fetching Breeds")
             self.viewModel.fetchBreeds()
             })
-                //                ScrollView(.vertical, showsIndicators: false) {
-                //                    VStack(spacing: 10) {
-                //                        if self.viewModel.breeds.isEmpty {
-                //                            EmptyView()
-                //                        }
-                //                        else {
-                //                            ForEach(self.viewModel.breeds, content: BreedItemView.init(viewModel:)).frame(width: g.size.width)
-                //                        }
-                //                    }.frame(width: g.size.width)
-                //                    .padding()
             }
         }
-        //.padding([.horizontal])
     }
 }
 
@@ -49,11 +38,11 @@ struct BreedItemView: View {
                 }
                 Spacer()
                 ZStack {
-                    Rectangle().blur(radius: 54.37).cornerRadius(radius: 13, corners: [.bottomLeft, .bottomRight])
+                    Rectangle().fill(Color.black.opacity(0.6)).blur(radius: 54.37).cornerRadius(radius: 13, corners: [.bottomLeft, .bottomRight])
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(viewModel.breed.name).bold()
-                            Text(viewModel.breed.description)
+                            Text(viewModel.breed.name).bold().foregroundColor(.white)
+                            Text(viewModel.breed.description).foregroundColor(Color.white.opacity(0.75))
                         }
                     }.padding()
                 }.frame(height: 100)

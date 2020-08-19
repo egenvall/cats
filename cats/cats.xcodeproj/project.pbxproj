@@ -24,6 +24,8 @@
 		C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */; };
 		C8799F6D24ED992200A4AA8C /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6C24ED992200A4AA8C /* BlurView.swift */; };
 		C8799F6F24ED99ED00A4AA8C /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */; };
+		C8799F7124EDA16F00A4AA8C /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8799F7024EDA16F00A4AA8C /* Color.xcassets */; };
+		C8799F7324EDA27300A4AA8C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F7224EDA27300A4AA8C /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedViewModel.swift; sourceTree = "<group>"; };
 		C8799F6C24ED992200A4AA8C /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
+		C8799F7024EDA16F00A4AA8C /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		C8799F7224EDA27300A4AA8C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,8 @@
 			children = (
 				C8799F6C24ED992200A4AA8C /* BlurView.swift */,
 				C8799F6E24ED99ED00A4AA8C /* CornerRadius.swift */,
+				C8799F7024EDA16F00A4AA8C /* Color.xcassets */,
+				C8799F7224EDA27300A4AA8C /* ColorExtension.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -333,6 +339,7 @@
 			files = (
 				C8799F5824ED4E9C00A4AA8C /* keys.plist in Resources */,
 				C8799F2024ED400A00A4AA8C /* LaunchScreen.storyboard in Resources */,
+				C8799F7124EDA16F00A4AA8C /* Color.xcassets in Resources */,
 				C8799F1D24ED400A00A4AA8C /* Preview Assets.xcassets in Resources */,
 				C8799F1A24ED400A00A4AA8C /* Assets.xcassets in Resources */,
 			);
@@ -362,6 +369,7 @@
 				C8799F4524ED41A400A4AA8C /* Breed.swift in Sources */,
 				C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */,
 				C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */,
+				C8799F7324EDA27300A4AA8C /* ColorExtension.swift in Sources */,
 				C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */,
 				C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */,
 				C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */,
