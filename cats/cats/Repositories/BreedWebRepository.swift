@@ -5,6 +5,7 @@ enum APIErrorResponse: Error {
     case invalidStatusCode(_: Int)
     case invalidResponse
     case invalidUrlRequest
+    case invalidAuthentication
 }
 protocol BreedWebRepository {
     func loadBreeds() -> AnyPublisher<[Breed], Error>
@@ -12,13 +13,22 @@ protocol BreedWebRepository {
 
 final class RealBreedWebRepository: BreedWebRepository {
     static let shared = RealBreedWebRepository()
-    
+    let apiKeyService = ApiKeyService()
     func loadBreeds() -> AnyPublisher<[Breed], Error> {
         guard let url = buildUrl(.breeds) else {
+            print("Invalid URL")
             return Fail(error: APIErrorResponse.invalidUrlRequest).eraseToAnyPublisher()
         }
-        return URLSession.shared.dataTaskPublisher(for: url)
+        guard let apiKey = apiKeyService.retrieveApiKey(for: .breed) else {
+            print("Failed to retrieve API Key")
+            return Fail(error: APIErrorResponse.invalidAuthentication).eraseToAnyPublisher()
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue(apiKey, forHTTPHeaderField: "x-api-key")
+        return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> [Breed] in
+                print("Result: \(result.data)")
                 guard let httpResponse = result.response as? HTTPURLResponse else {
                     throw APIErrorResponse.invalidResponse
                 }
@@ -26,7 +36,7 @@ final class RealBreedWebRepository: BreedWebRepository {
                     throw APIErrorResponse.invalidStatusCode(httpResponse.statusCode)
                 }
                 let decoder = JSONDecoder()
-                let value = try decoder.decode([Breed].self, from: result.data)
+                let value = try decoder.decode(Breeds.self, from: result.data)
                 return value
                 
         }
