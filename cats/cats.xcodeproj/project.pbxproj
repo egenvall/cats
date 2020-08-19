@@ -16,6 +16,8 @@
 		C8799F2B24ED400A00A4AA8C /* catsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F2A24ED400A00A4AA8C /* catsTests.swift */; };
 		C8799F3624ED400A00A4AA8C /* catsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F3524ED400A00A4AA8C /* catsUITests.swift */; };
 		C8799F4524ED41A400A4AA8C /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F4424ED41A400A4AA8C /* Breed.swift */; };
+		C8799F5824ED4E9C00A4AA8C /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8799F5724ED4E9C00A4AA8C /* keys.plist */; };
+		C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F5A24ED4F1C00A4AA8C /* ApiKeyService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		C8799F3524ED400A00A4AA8C /* catsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catsUITests.swift; sourceTree = "<group>"; };
 		C8799F3724ED400A00A4AA8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8799F4424ED41A400A4AA8C /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
+		C8799F5724ED4E9C00A4AA8C /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
+		C8799F5A24ED4F1C00A4AA8C /* ApiKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 		C8799F1224ED400900A4AA8C /* cats */ = {
 			isa = PBXGroup;
 			children = (
+				C8799F5924ED4EF000A4AA8C /* Utility */,
+				C8799F5624ED4E8F00A4AA8C /* keys */,
 				C8799F4324ED419600A4AA8C /* Model */,
 				C8799F1324ED400900A4AA8C /* AppDelegate.swift */,
 				C8799F1524ED400900A4AA8C /* SceneDelegate.swift */,
@@ -145,6 +151,22 @@
 				C8799F4424ED41A400A4AA8C /* Breed.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C8799F5624ED4E8F00A4AA8C /* keys */ = {
+			isa = PBXGroup;
+			children = (
+				C8799F5724ED4E9C00A4AA8C /* keys.plist */,
+			);
+			path = keys;
+			sourceTree = "<group>";
+		};
+		C8799F5924ED4EF000A4AA8C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C8799F5A24ED4F1C00A4AA8C /* ApiKeyService.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8799F5824ED4E9C00A4AA8C /* keys.plist in Resources */,
 				C8799F2024ED400A00A4AA8C /* LaunchScreen.storyboard in Resources */,
 				C8799F1D24ED400A00A4AA8C /* Preview Assets.xcassets in Resources */,
 				C8799F1A24ED400A00A4AA8C /* Assets.xcassets in Resources */,
@@ -281,6 +304,7 @@
 				C8799F4524ED41A400A4AA8C /* Breed.swift in Sources */,
 				C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */,
 				C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */,
+				C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */,
 				C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
