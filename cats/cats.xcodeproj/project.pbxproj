@@ -21,6 +21,7 @@
 		C8799F5E24ED509100A4AA8C /* BreedWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F5D24ED509100A4AA8C /* BreedWebRepository.swift */; };
 		C8799F6124ED529600A4AA8C /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6024ED529600A4AA8C /* APICall.swift */; };
 		C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6624ED5D6300A4AA8C /* BreedOverviewViewModel.swift */; };
+		C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		C8799F5D24ED509100A4AA8C /* BreedWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedWebRepository.swift; sourceTree = "<group>"; };
 		C8799F6024ED529600A4AA8C /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
 		C8799F6624ED5D6300A4AA8C /* BreedOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedOverviewViewModel.swift; sourceTree = "<group>"; };
+		C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		C8799F1224ED400900A4AA8C /* cats */ = {
 			isa = PBXGroup;
 			children = (
+				C8799F6824ED926900A4AA8C /* Breed */,
 				C8799F6524ED5D4800A4AA8C /* BreedOverview */,
 				C8799F5C24ED507A00A4AA8C /* Repositories */,
 				C8799F5924ED4EF000A4AA8C /* Utility */,
@@ -200,6 +203,14 @@
 				C8799F6624ED5D6300A4AA8C /* BreedOverviewViewModel.swift */,
 			);
 			path = BreedOverview;
+			sourceTree = "<group>";
+		};
+		C8799F6824ED926900A4AA8C /* Breed */ = {
+			isa = PBXGroup;
+			children = (
+				C8799F6924ED930E00A4AA8C /* BreedViewModel.swift */,
+			);
+			path = Breed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +349,7 @@
 				C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */,
 				C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */,
 				C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */,
+				C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */,
 				C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */,
 				C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */,
 				C8799F6124ED529600A4AA8C /* APICall.swift in Sources */,

@@ -18,7 +18,7 @@ struct ContentView: View {
                 EmptyView()
             }
             else {
-                ForEach(viewModel.breeds, content: BreedItem.init(breed:))
+                ForEach(viewModel.breeds, content: BreedItemView.init(viewModel:))
             }
         }.onAppear(perform: {
             print("Fetching Breeds")
@@ -29,10 +29,10 @@ struct ContentView: View {
 }
 
 
-struct BreedItem: View {
-    let breed: Breed
+struct BreedItemView: View {
+    let viewModel: BreedViewModel
     var body: some View {
-        Text(breed.id)
+        Text(viewModel.breed.id)
     }
 }
 struct ContentView_Previews: PreviewProvider {
