@@ -10,9 +10,11 @@ class BreedOverviewViewModel: ObservableObject {
 // MARK: - Fetching
 extension BreedOverviewViewModel {
     func fetchBreeds() {
-        breedFetcher.loadBreeds()
-            .map { response in
-                response.map { BreedViewModel($0) }
+        breedFetcher.loadFullBreeds()
+            .map { (response, info) in
+                response.map { breed in
+                    return BreedViewModel(breed, imageUrl: info.first(where: { $0.0 == breed.id })?.1 ?? "https://i.pinimg.com/736x/6a/db/be/6adbbe878c012ed1a8802adcc30edd5b.jpg")
+                }
             }
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] value in

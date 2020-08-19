@@ -18,6 +18,7 @@ struct Breed: Codable, Equatable, Identifiable {
     let description: String
     //let weight: String
     let attributes: [BreedAttributeRated]
+    var imageUrl: String? = nil
     
     enum CodingKeys: String, CodingKey {
         case id, name, temperament, weight, intelligence, vocalisation, affection = "affection_level", energy = "energy_level", grooming, description

@@ -26,6 +26,7 @@ struct BreedItemView: View {
             RoundedRectangle(cornerRadius: 13, style: .continuous).fill(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]),
                                                                                        startPoint: .topLeading,
                                                                                        endPoint: .bottomTrailing)).frame(height: 300)
+            Text(viewModel.imageUrl)
             
             VStack {
                 HStack {

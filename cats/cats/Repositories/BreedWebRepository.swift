@@ -9,11 +9,21 @@ enum APIErrorResponse: Error {
 }
 protocol BreedWebRepository {
     func loadBreeds() -> AnyPublisher<[Breed], Error>
+    func loadFullBreeds() -> AnyPublisher<([Breed], [BreedImageInfo]), Error>
 }
+
+typealias BreedImageInfo = (String, String)
 
 final class RealBreedWebRepository: BreedWebRepository {
     static let shared = RealBreedWebRepository()
     let apiKeyService = ApiKeyService()
+    func loadFullBreeds() -> AnyPublisher<([Breed], [BreedImageInfo]), Error> {
+        let breedRequest = loadBreeds()
+        let imagePublishers = breedRequest.flatMap { breedList in
+            return Publishers.MergeMany(breedList.map { self.fetchImage(for: $0.id )}).collect()
+        }
+        return Publishers.Zip(breedRequest, imagePublishers).eraseToAnyPublisher()
+    }
     func loadBreeds() -> AnyPublisher<[Breed], Error> {
         guard let url = buildUrl(.breeds) else {
             print("Invalid URL")
@@ -38,10 +48,12 @@ final class RealBreedWebRepository: BreedWebRepository {
                 let decoder = JSONDecoder()
                 let value = try decoder.decode(Breeds.self, from: result.data)
                 return value
-                
         }
         .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
+    }
+    private func fetchImage(for breedId: String) -> AnyPublisher<BreedImageInfo, Error> {
+        return Result.Publisher((breedId, "https://wallup.net/wp-content/uploads/2018/03/19/578332-cat-animals-insect-nature-butterfly-748x527.jpg")).eraseToAnyPublisher()
     }
 }
 
