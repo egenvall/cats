@@ -37,6 +37,36 @@ struct BreedTemperamentView: View {
     }
 }
 
+struct MainAttributeView: View {
+    let attribute: BreedAttributeRated
+    
+    var body: some View {
+        Text(attribute.attribute.rawValue.capitalized)
+            .font(.subheadline)
+            .bold()
+            .padding([.vertical], 5)
+            .padding([.horizontal], 15)
+            .foregroundColor(.white)
+            .background(getColor())
+            .cornerRadius(50) // Abnormally high makes them round
+    }
+    
+    private func getColor() -> Color {
+        switch attribute.attribute {
+        case .intelligence:
+            return Color(UIColor.systemBlue)
+        case .affection:
+            return Color(UIColor.systemPink)
+        case .energy:
+            return Color(UIColor.systemOrange)
+        case .grooming:
+            return Color(UIColor.systemIndigo)
+        case .vocalisation:
+            return Color(UIColor.systemGreen)
+        }
+    }
+}
+
 struct BreedItemView: View {
     @ObservedObject var viewModel: BreedViewModel
     var body: some View {
@@ -44,58 +74,21 @@ struct BreedItemView: View {
             RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color(UIColor.systemBackground)).shadow(radius: 4.0)
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.breed.name).font(.title).bold()
-                    
-                    HStack {
-                        let temperamentCount = viewModel.breed.temperament.count
-                        if temperamentCount == 0 {
-                            EmptyView()
-                        }
-                        else if temperamentCount <= 3 {
-                            ForEach(viewModel.breed.temperament, id: \.self) { tag in
-                                BreedTemperamentView(temperament: tag)
-                            }
-                        }
-                        else {
-                            BreedTemperamentView(temperament: viewModel.breed.temperament[0])
-                            BreedTemperamentView(temperament: viewModel.breed.temperament[1])
-                            Spacer()
-                            BreedTemperamentView(temperament: "+\(temperamentCount - 2)").fixedSize()
-                        }
+                    HStack(alignment: .top) {
+                        Text(viewModel.breed.name).font(.title).bold()
+                            .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Spacer()
+                        MainAttributeView(attribute: viewModel.breed.mainAttribute()).fixedSize()
+
                     }
+                    Rectangle().fill(Color(UIColor.separator)).frame(height: 1)
+                    
+                    Text(viewModel.breed.getTemperament()).font(.subheadline).foregroundColor(Color(UIColor.secondaryLabel)).fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 }
                 Spacer()
             }.padding()
         }
-        
-        
-        //        ZStack {
-        //            RoundedRectangle(cornerRadius: 13, style: .continuous).fill(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]),
-        //                                                                                       startPoint: .topLeading,
-        //                                                                                       endPoint: .bottomTrailing)).frame(height: 300)
-        //
-        //            VStack {
-        //                HStack {
-        //                    Spacer()
-        //                    Image(systemName: viewModel.isFavourite ? "star.fill" : "star").onTapGesture {
-        //                        let isFav = self.viewModel.isFavourite
-        //                        print("Set \(self.viewModel.breed.name) to Favourite Status: \(!isFav)")
-        //                        self.viewModel.isFavourite.toggle()
-        //                    }.padding()
-        //                }
-        //                Spacer()
-        //                ZStack {
-        //                    Rectangle().fill(Color.black.opacity(0.6)).blur(radius: 54.37).cornerRadius(radius: 13, corners: [.bottomLeft, .bottomRight])
-        //                    HStack {
-        //                        VStack(alignment: .leading) {
-        //                            Text(viewModel.breed.name).bold().foregroundColor(.white)
-        //                            Text(viewModel.breed.description).foregroundColor(Color.white.opacity(0.75))
-        //                        }
-        //                    }.padding()
-        //                }.frame(height: 100)
-        //            }
-        
-        
     }
     
 }

@@ -2,7 +2,7 @@ enum BreedAttributeScale: Int, Decodable {
     case minimal = 1, slightly, neutral, positive, maximal
 }
 enum BreedAttribute: String {
-    case intelligence, vocalisation, affection, energy, grooming
+    case intelligence = "Intelligent", vocalisation = "Vocal", affection = "Affectionate", energy = "Energetic", grooming = "Grooming"
 }
 
 struct BreedAttributeRated {
@@ -62,7 +62,22 @@ struct Breed: Codable, Equatable, Identifiable {
         ]
     }
     func mainAttribute() -> BreedAttributeRated {
-        return attributes.max { a, b in a.scale.rawValue < b.scale.rawValue } // Deal with equal max
+        return attributes.max { a, b in a.scale.rawValue < b.scale.rawValue } ?? maxRatedAttribute()
+    }
+    private func maxRatedAttribute() -> BreedAttributeRated {
+        var currentMax: BreedAttributeRated = BreedAttributeRated(attribute: .intelligence, scale: .minimal)
+        attributes.enumerated().forEach { (index, attribute) in
+            if index == 0 {
+                currentMax = attribute
+            }
+            if attribute.scale.rawValue > currentMax.scale.rawValue {
+                currentMax = attribute
+            }
+        }
+        return currentMax
+    }
+    func getTemperament() -> String {
+        return temperament.map { $0.capitalized }.reduce("", { $0 == "" ? $1 : $0 + "," + $1 })
     }
     
 }
