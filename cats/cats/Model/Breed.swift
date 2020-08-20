@@ -9,6 +9,8 @@ struct BreedAttributeRated {
     let attribute: BreedAttribute
     let scale: BreedAttributeScale
 }
+
+
 typealias Breeds = [Breed]
 struct BreedImageInfo: Codable, Equatable {
     let imageUrl: String
@@ -18,7 +20,7 @@ struct Breed: Codable, Equatable, Identifiable {
     
     let id: String
     let name: String
-    let temperament: String
+    let temperament: [String]
     let description: String
     //let weight: String
     let attributes: [BreedAttributeRated]
@@ -38,9 +40,11 @@ struct Breed: Codable, Equatable, Identifiable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(String.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
-        temperament = try values.decode(String.self, forKey: .temperament)
         description = try values.decode(String.self, forKey: .description)
        // weight = try values.decode(String.self, forKey: .weight)
+
+        let temperamentString = try values.decode(String.self, forKey: .temperament)
+        temperament = temperamentString.components(separatedBy: ",")
 
         // Attributes
         let intelligenceRating = try values.decode(BreedAttributeScale.self, forKey: .intelligence)
@@ -56,6 +60,9 @@ struct Breed: Codable, Equatable, Identifiable {
             BreedAttributeRated(attribute: .energy, scale: energyRating),
             BreedAttributeRated(attribute: .grooming, scale: groomingRating)
         ]
+    }
+    func mainAttribute() -> BreedAttributeRated {
+        return attributes.max { a, b in a.scale.rawValue < b.scale.rawValue } // Deal with equal max
     }
     
 }
