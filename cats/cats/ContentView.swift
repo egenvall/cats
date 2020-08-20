@@ -1,22 +1,34 @@
 import SwiftUI
-
+import SwiftlySearch
 struct ContentView: View {
     @ObservedObject var viewModel = BreedOverviewViewModel()
+    var layout = [ GridItem(.flexible()) ]
+    @State var searchText = ""
     var body: some View {
         NavigationView {
-            GeometryReader { g in
-                List(self.viewModel.breeds, id: \.id) { breed in
-                    BreedItemView(viewModel: breed)
-            }.edgesIgnoringSafeArea([.bottom, .horizontal]).navigationBarTitle("Main").onAppear(perform: {
-            print("Fetching Breeds")
-            self.viewModel.fetchBreeds()
-            })
-            }
+            ScrollView {
+                LazyVGrid(columns: layout, spacing: 20) {
+                    ForEach(viewModel.breeds.filter {
+                        return searchText.isEmpty ? true : $0.breed.name.contains(searchText)
+                        
+                    }) {
+                        BreedItemView(viewModel: $0)
+                    }
+                }.padding()
+            }.onAppear(perform: {
+                self.viewModel.fetchBreeds()
+            }).navigationTitle("Breeds").navigationBarSearch(self.$searchText)
         }
     }
 }
 
-
+extension ContentView {
+    var searchView: some View {
+        HStack(alignment: .center) {
+            TextField("e.g. Russian Blue", text: $viewModel.searchText)
+        }
+    }
+}
 
 
 struct BreedItemView: View {
@@ -26,7 +38,6 @@ struct BreedItemView: View {
             RoundedRectangle(cornerRadius: 13, style: .continuous).fill(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]),
                                                                                        startPoint: .topLeading,
                                                                                        endPoint: .bottomTrailing)).frame(height: 300)
-            Text(viewModel.imageUrl)
             
             VStack {
                 HStack {

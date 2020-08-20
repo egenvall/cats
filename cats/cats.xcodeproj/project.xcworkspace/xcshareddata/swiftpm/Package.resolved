@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftlySearch",
+        "repositoryURL": "https://github.com/thislooksfun/SwiftlySearch",
+        "state": {
+          "branch": "master",
+          "revision": "a9a9101e1d04ba965eb38188b5d0809a4c745fcd",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

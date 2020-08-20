@@ -10,6 +10,10 @@ struct BreedAttributeRated {
     let scale: BreedAttributeScale
 }
 typealias Breeds = [Breed]
+struct BreedImageInfo: Codable, Equatable {
+    let imageUrl: String
+    let breedId: String
+}
 struct Breed: Codable, Equatable, Identifiable {
     
     let id: String

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C8171A5F24EEB218002020E4 /* SwiftlySearch in Frameworks */ = {isa = PBXBuildFile; productRef = C8171A5E24EEB218002020E4 /* SwiftlySearch */; };
 		C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1324ED400900A4AA8C /* AppDelegate.swift */; };
 		C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1524ED400900A4AA8C /* SceneDelegate.swift */; };
 		C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1724ED400900A4AA8C /* ContentView.swift */; };
@@ -78,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8171A5F24EEB218002020E4 /* SwiftlySearch in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +251,9 @@
 			dependencies = (
 			);
 			name = cats;
+			packageProductDependencies = (
+				C8171A5E24EEB218002020E4 /* SwiftlySearch */,
+			);
 			productName = cats;
 			productReference = C8799F1024ED400900A4AA8C /* cats.app */;
 			productType = "com.apple.product-type.application";
@@ -321,6 +326,9 @@
 				Base,
 			);
 			mainGroup = C8799F0724ED400900A4AA8C;
+			packageReferences = (
+				C8171A5D24EEB218002020E4 /* XCRemoteSwiftPackageReference "SwiftlySearch" */,
+			);
 			productRefGroup = C8799F1124ED400900A4AA8C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -474,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -528,7 +536,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -547,6 +555,7 @@
 				DEVELOPMENT_TEAM = F59U36GL6B;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = cats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,6 +576,7 @@
 				DEVELOPMENT_TEAM = F59U36GL6B;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = cats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -702,6 +712,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C8171A5D24EEB218002020E4 /* XCRemoteSwiftPackageReference "SwiftlySearch" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/thislooksfun/SwiftlySearch";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C8171A5E24EEB218002020E4 /* SwiftlySearch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8171A5D24EEB218002020E4 /* XCRemoteSwiftPackageReference "SwiftlySearch" */;
+			productName = SwiftlySearch;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C8799F0824ED400900A4AA8C /* Project object */;
 }
