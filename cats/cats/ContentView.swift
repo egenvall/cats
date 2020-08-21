@@ -25,7 +25,7 @@ struct ContentView: View {
             }) {
                 Image(systemName: "slider.horizontal.3")
             }).sheet(isPresented: $viewModel.isDisplayingFilter) {
-                FilterView()
+                FilterView(viewModel.breeds)
             }
         }
     }
@@ -36,12 +36,6 @@ extension ContentView {
         HStack(alignment: .center) {
             TextField("e.g. Russian Blue", text: $viewModel.searchText)
         }
-    }
-}
-
-struct FilterView: View {
-    var body: some View {
-        Text("Filter")
     }
 }
 

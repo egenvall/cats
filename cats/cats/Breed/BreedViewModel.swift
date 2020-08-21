@@ -21,18 +21,7 @@ final class BreedViewModel: ObservableObject, Identifiable {
         guard let attribute = BreedAttribute(rawValue: mainAttribute) else {
             return Color(UIColor.systemRed)
         }
-        switch attribute {
-        case .intelligence:
-            return Color(UIColor.systemBlue)
-        case .affection:
-            return Color(UIColor.systemPink)
-        case .energy:
-            return Color(UIColor.systemOrange)
-        case .grooming:
-            return Color(UIColor.systemIndigo)
-        case .vocalisation:
-            return Color(UIColor.systemGreen)
-        }
+        return Color.color(for: attribute)
     }
     
     private var maxRatedAttribute: String {

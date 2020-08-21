@@ -1,7 +1,7 @@
 enum BreedAttributeScale: Int, Decodable {
     case minimal = 1, slightly, neutral, positive, maximal
 }
-enum BreedAttribute: String {
+enum BreedAttribute: String, CaseIterable {
     case intelligence = "Intelligent", vocalisation = "Vocal", affection = "Affectionate", energy = "Energetic", grooming = "Grooming"
 }
 
