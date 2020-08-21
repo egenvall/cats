@@ -6,8 +6,11 @@ class BreedOverviewViewModel: ObservableObject {
     private var disposables = Set<AnyCancellable>()
     private let scheduler = DispatchQueue(label: "BreedOverviewModel")
     private var allBreeds: [BreedViewModel] = []
+    
+    
     @Published var breeds: [BreedViewModel] = []
     @Published var searchText: String = ""
+    @Published var isDisplayingFilter: Bool = false
     
     init() {
         $searchText

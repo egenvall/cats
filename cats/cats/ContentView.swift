@@ -17,7 +17,16 @@ struct ContentView: View {
                 }.padding().animation(.easeOut)
             }.onAppear(perform: {
                 self.viewModel.fetchBreeds()
-            }).navigationTitle("Breeds").navigationBarSearch(self.$searchText)
+            }).navigationTitle("Breeds")
+            .navigationBarSearch(self.$searchText)
+            .navigationBarItems(trailing: Button(action: {
+                viewModel.isDisplayingFilter.toggle()
+                
+            }) {
+                Image(systemName: "slider.horizontal.3")
+            }).sheet(isPresented: $viewModel.isDisplayingFilter) {
+                FilterView()
+            }
         }
     }
 }
@@ -27,6 +36,12 @@ extension ContentView {
         HStack(alignment: .center) {
             TextField("e.g. Russian Blue", text: $viewModel.searchText)
         }
+    }
+}
+
+struct FilterView: View {
+    var body: some View {
+        Text("Filter")
     }
 }
 
@@ -47,8 +62,7 @@ struct MainAttributeView: View {
             .padding([.vertical], 5)
             .padding([.horizontal], 15)
             .foregroundColor(.white)
-            .background(viewModel.mainAttributeColor)
-            .cornerRadius(50) // Abnormally high makes them round
+            .background(Capsule().fill(viewModel.mainAttributeColor))
     }
     
     
@@ -67,7 +81,7 @@ struct BreedItemView: View {
                             .fixedSize(horizontal: false, vertical: true)
                         Spacer()
                         MainAttributeView(viewModel: viewModel).fixedSize()
-
+                        
                     }
                     Rectangle().fill(Color(UIColor.separator)).frame(height: 1)
                     
