@@ -10,21 +10,17 @@ struct BreedAttributeRated {
     let scale: BreedAttributeScale
 }
 
-
 typealias Breeds = [Breed]
 struct BreedImageInfo: Codable, Equatable {
     let imageUrl: String
     let breedId: String
 }
 struct Breed: Codable, Equatable, Identifiable {
-    
     let id: String
     let name: String
     let temperament: [String]
     let description: String
-    //let weight: String
     let attributes: [BreedAttributeRated]
-    var imageUrl: String? = nil
     
     enum CodingKeys: String, CodingKey {
         case id, name, temperament, weight, intelligence, vocalisation, affection = "affection_level", energy = "energy_level", grooming, description
@@ -60,24 +56,5 @@ struct Breed: Codable, Equatable, Identifiable {
             BreedAttributeRated(attribute: .energy, scale: energyRating),
             BreedAttributeRated(attribute: .grooming, scale: groomingRating)
         ]
-    }
-    func mainAttribute() -> BreedAttributeRated {
-        return attributes.max { a, b in a.scale.rawValue < b.scale.rawValue } ?? maxRatedAttribute()
-    }
-    private func maxRatedAttribute() -> BreedAttributeRated {
-        var currentMax: BreedAttributeRated = BreedAttributeRated(attribute: .intelligence, scale: .minimal)
-        attributes.enumerated().forEach { (index, attribute) in
-            if index == 0 {
-                currentMax = attribute
-            }
-            if attribute.scale.rawValue > currentMax.scale.rawValue {
-                currentMax = attribute
-            }
-        }
-        return currentMax
-    }
-    func getTemperament() -> String {
-        return temperament.map { $0.capitalized }.reduce("", { $0 == "" ? $1 : $0 + "," + $1 })
-    }
-    
+    }  
 }

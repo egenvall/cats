@@ -23,7 +23,7 @@ class BreedOverviewViewModel: ObservableObject {
             breeds = allBreeds
             return
         }
-        breeds = allBreeds.filter { $0.breed.name.contains(query) }
+        breeds = allBreeds.filter { $0.name.contains(query) }
     }
     func search(_ query: String) {
         searchText = query
@@ -34,11 +34,6 @@ class BreedOverviewViewModel: ObservableObject {
 extension BreedOverviewViewModel {
     func fetchBreeds() {
         breedFetcher.loadFullBreeds()
-//            .map { (response, info) in
-//                response.map { breed in
-//                    return BreedViewModel(breed, imageUrl: info.first(where: { $0.breedId == breed.id })?.imageUrl ?? "https://i.pinimg.com/736x/6a/db/be/6adbbe878c012ed1a8802adcc30edd5b.jpg")
-//                }
-//            }
             .map { response in
                 return response.map { BreedViewModel($0)}
             }

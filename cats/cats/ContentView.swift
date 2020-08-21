@@ -9,7 +9,7 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: layout, spacing: 20) {
                     ForEach(viewModel.breeds.filter {
-                        return searchText.isEmpty ? true : $0.breed.name.contains(searchText)
+                        return searchText.isEmpty ? true : $0.name.contains(searchText)
                         
                     }) {
                         BreedItemView(viewModel: $0)
@@ -38,33 +38,20 @@ struct BreedTemperamentView: View {
 }
 
 struct MainAttributeView: View {
-    let attribute: BreedAttributeRated
+    let viewModel: BreedViewModel
     
     var body: some View {
-        Text(attribute.attribute.rawValue.capitalized)
+        Text(viewModel.mainAttribute)
             .font(.subheadline)
             .bold()
             .padding([.vertical], 5)
             .padding([.horizontal], 15)
             .foregroundColor(.white)
-            .background(getColor())
+            .background(viewModel.mainAttributeColor)
             .cornerRadius(50) // Abnormally high makes them round
     }
     
-    private func getColor() -> Color {
-        switch attribute.attribute {
-        case .intelligence:
-            return Color(UIColor.systemBlue)
-        case .affection:
-            return Color(UIColor.systemPink)
-        case .energy:
-            return Color(UIColor.systemOrange)
-        case .grooming:
-            return Color(UIColor.systemIndigo)
-        case .vocalisation:
-            return Color(UIColor.systemGreen)
-        }
-    }
+    
 }
 
 struct BreedItemView: View {
@@ -75,16 +62,16 @@ struct BreedItemView: View {
             HStack {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) {
-                        Text(viewModel.breed.name).font(.title).bold()
+                        Text(viewModel.name).font(.title).bold()
                             .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
                         Spacer()
-                        MainAttributeView(attribute: viewModel.breed.mainAttribute()).fixedSize()
+                        MainAttributeView(viewModel: viewModel).fixedSize()
 
                     }
                     Rectangle().fill(Color(UIColor.separator)).frame(height: 1)
                     
-                    Text(viewModel.breed.getTemperament()).font(.subheadline).foregroundColor(Color(UIColor.secondaryLabel)).fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                    Text(viewModel.temperamentDescription).font(.subheadline).foregroundColor(Color(UIColor.secondaryLabel)).fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 }
                 Spacer()
             }.padding()

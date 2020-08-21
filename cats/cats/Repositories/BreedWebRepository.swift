@@ -64,7 +64,6 @@ final class RealBreedWebRepository: BreedWebRepository {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.queryItems = [breedQuery(breedId), limitQuery(1)]
         guard let queriedUrl = components?.url else {
-            print("Invalid Query URL: \(components?.url)")
             return Fail(error: APIErrorResponse.invalidUrlRequest).eraseToAnyPublisher()
         }
         var request = URLRequest(url: queriedUrl)
