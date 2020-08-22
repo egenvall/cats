@@ -83,8 +83,8 @@ struct TagItemView: View {
             .background(backgroundItem).animation(.easeOut)
             .foregroundColor(Color.white)
             .onTapGesture {
-                item.isActive.toggle()
                 print("Tapped: \(item.tag.title)")
+                item.isActive.toggle()
             }
     }
 }

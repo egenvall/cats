@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 enum TagItemStyle {
     case capsule, roundedCorners(cornerRadius: CGFloat)
 }
@@ -15,7 +16,7 @@ struct FilterTag: TagItem {
     var activeBgColor:  Color
     var style: TagItemStyle
     var title: String
-    var isActive: Bool = false
+    var isActive: Bool = true
     
     init(passiveBgColor: Color = Color.gray, activeBgColor: Color, style: TagItemStyle = .capsule, title: String) {
         self.passiveBgColor = passiveBgColor
@@ -34,26 +35,39 @@ class ObservableTagViewModel: ObservableObject, Hashable {
     }
     
     @Published var tag: TagItem
-    @Published var isActive: Bool = false
+    @Published var isActive: Bool = true
     init(_ tag: TagItem) {
         self.tag = tag
     }
 }
 class ObservableTags: ObservableObject {
-    @Published var tags: [ObservableTagViewModel]
+    private var disposables = Set<AnyCancellable>()
+    @Published var tags: [ObservableTagViewModel] = []
     init(_ tags: [ObservableTagViewModel]) {
         self.tags = tags
+        tags.forEach { tag in
+            tag.objectWillChange.sink(receiveValue: { _ in
+                print("Observabletags changed")
+                self.objectWillChange.send()
+                
+            }
+            ).store(in: &disposables)
+        }
     }
 }
 class FilterViewModel: ObservableObject {
-    @Published var attributeModel: ObservableTags
+    @Published var attributeModel: ObservableTags = ObservableTags([])
+    private var disposables = Set<AnyCancellable>()
     
-    init(_ breedViewModels: [BreedViewModel]) {
-        
-        
+    func configure(_ breedViewModels: [BreedViewModel]) {
         attributeModel = ObservableTags(BreedAttribute.allCases.map { attribute in
-                                            return ObservableTagViewModel(FilterTag(passiveBgColor: Color.gray, activeBgColor: Color.color(for: attribute), style: .capsule, title: attribute.rawValue))}
-        )
+                                            return ObservableTagViewModel(FilterTag(passiveBgColor: Color.gray, activeBgColor: Color.color(for: attribute), style: .capsule, title: attribute.rawValue))})
+        attributeModel.objectWillChange.sink(receiveValue: { _ in
+            print("AttributeModel Changed")
+            self.objectWillChange.send()
+            
+        }
+        ).store(in: &disposables)
     }
 }
 struct FilterView: View {
@@ -71,9 +85,6 @@ struct FilterView: View {
             }
             .padding().navigationTitle("Filter")
         }
-    }
-    init(_ breedViewModels: [BreedViewModel]) {
-        self.viewModel = FilterViewModel(breedViewModels)
     }
 }
 struct FilterSection<Content: View>: View {

@@ -25,7 +25,7 @@ struct ContentView: View {
             }) {
                 Image(systemName: "slider.horizontal.3")
             }).sheet(isPresented: $viewModel.isDisplayingFilter) {
-                FilterView(viewModel.breeds)
+                FilterView(viewModel: viewModel.filterModel)
             }
         }
     }
