@@ -38,16 +38,18 @@ struct FilterTag: TagItem {
 }
 
 class FilterViewModel: ObservableObject {
-    @Published var attributeModel = TagHolder()
+    @Published var attributeModel: [TagItem] = []
     private var disposables = Set<AnyCancellable>()
     
     func configure(_ breedViewModels: [BreedViewModel]) {
-        attributeModel = TagHolder(BreedAttribute.allCases.map { attribute in
-                                            return (FilterTag(passiveBgColor: Color.gray, activeBgColor: Color.color(for: attribute), style: .capsule, title: attribute.rawValue))})
-        attributeModel.objectWillChange.sink(receiveValue: { _ in
-            self.objectWillChange.send()
-        }
-        ).store(in: &disposables)
+        attributeModel =
+            BreedAttribute.allCases.map { attribute in
+                return FilterTag(
+                    passiveBgColor: Color.gray,
+                    activeBgColor: Color.color(for: attribute),
+                    style: .capsule, title: attribute.rawValue
+                )
+            }
     }
 }
 struct FilterView: View {
@@ -57,7 +59,7 @@ struct FilterView: View {
             HStack {
                 VStack(alignment: .leading) {
                     FilterSection(title: "Main Attribute") {
-                        TagCloudView(viewModel: viewModel.attributeModel)
+                        TagCloudView(viewModel: $viewModel.attributeModel)
                     }
                     Spacer()
                 }

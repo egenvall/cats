@@ -5,12 +5,9 @@ import SwiftUI
  
  */
 
-struct TagCloudView<Model>: View where Model: TagList {
-    //@ObservedObject var viewModel: ObservableTags
-    @ObservedObject var viewModel: Model
-    @State private var totalHeight
-     //     = CGFloat.zero       // << variant for ScrollView/List
-       = CGFloat.infinity   // << variant for VStack
+struct TagCloudView: View {
+    @Binding var viewModel: [TagItem]
+    @State private var totalHeight = CGFloat.infinity
 
     var body: some View {
         VStack {
@@ -18,20 +15,15 @@ struct TagCloudView<Model>: View where Model: TagList {
                 self.generateContent(in: geometry)
             }
         }
-        //.frame(height: totalHeight)// << variant for ScrollView/List
-        .frame(maxHeight: totalHeight) // << variant for VStack
+        .frame(maxHeight: totalHeight)
     }
 
     private func generateContent(in g: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
         return ZStack(alignment: .topLeading) {
-            ForEach(self.viewModel.items.indices) { index in
-                TagItemView(item: $viewModel.items[index])
-          //  }
-//            ForEach(self.viewModel.items, id: \.self.title) { model in
-//                TagItemView(item: $viewModel.items[0])
-                //self.item(for: tag)
+            ForEach(self.viewModel.indices) { index in
+                TagItemView(item: $viewModel[index])
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
                         if (abs(width - d.width) > g.size.width)
@@ -40,7 +32,7 @@ struct TagCloudView<Model>: View where Model: TagList {
                             height -= d.height
                         }
                         let result = width
-                        if viewModel.items[index].title == self.viewModel.items.last?.title {
+                        if viewModel[index].title == self.viewModel.last?.title {
                             width = 0 //last item
                         } else {
                             width -= d.width
@@ -49,7 +41,7 @@ struct TagCloudView<Model>: View where Model: TagList {
                     })
                     .alignmentGuide(.top, computeValue: {d in
                         let result = height
-                        if viewModel.items[index].title == self.viewModel.items.last?.title {
+                        if viewModel[index].title == self.viewModel.last?.title {
                             height = 0 // last item
                         }
                         return result
