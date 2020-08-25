@@ -3,6 +3,17 @@ import Combine
 enum TagItemStyle {
     case capsule, roundedCorners(cornerRadius: CGFloat)
 }
+protocol TagList: ObservableObject {
+    var items: [TagItem] { get set }
+}
+class TagHolder: TagList {
+    private var disposables = Set<AnyCancellable>()
+    @Published var items: [TagItem] = []
+    
+    init(_ items: [TagItem] = []) {
+        self.items = items
+    }
+}
 protocol TagItem {
     var passiveBgColor: Color { get }
     var activeBgColor: Color { get }
@@ -25,53 +36,22 @@ struct FilterTag: TagItem {
         self.title = title
     }
 }
-class ObservableTagViewModel: ObservableObject, Hashable {
-    static func == (lhs: ObservableTagViewModel, rhs: ObservableTagViewModel) -> Bool {
-        return lhs.tag.title == rhs.tag.title
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(tag.title)
-    }
-    
-    @Published var tag: TagItem
-    @Published var isActive: Bool = true
-    init(_ tag: TagItem) {
-        self.tag = tag
-    }
-}
-class ObservableTags: ObservableObject {
-    private var disposables = Set<AnyCancellable>()
-    @Published var tags: [ObservableTagViewModel] = []
-    init(_ tags: [ObservableTagViewModel]) {
-        self.tags = tags
-        tags.forEach { tag in
-            tag.objectWillChange.sink(receiveValue: { _ in
-                print("Observabletags changed")
-                self.objectWillChange.send()
-                
-            }
-            ).store(in: &disposables)
-        }
-    }
-}
+
 class FilterViewModel: ObservableObject {
-    @Published var attributeModel: ObservableTags = ObservableTags([])
+    @Published var attributeModel = TagHolder()
     private var disposables = Set<AnyCancellable>()
     
     func configure(_ breedViewModels: [BreedViewModel]) {
-        attributeModel = ObservableTags(BreedAttribute.allCases.map { attribute in
-                                            return ObservableTagViewModel(FilterTag(passiveBgColor: Color.gray, activeBgColor: Color.color(for: attribute), style: .capsule, title: attribute.rawValue))})
+        attributeModel = TagHolder(BreedAttribute.allCases.map { attribute in
+                                            return (FilterTag(passiveBgColor: Color.gray, activeBgColor: Color.color(for: attribute), style: .capsule, title: attribute.rawValue))})
         attributeModel.objectWillChange.sink(receiveValue: { _ in
-            print("AttributeModel Changed")
             self.objectWillChange.send()
-            
         }
         ).store(in: &disposables)
     }
 }
 struct FilterView: View {
-    @ObservedObject var viewModel: FilterViewModel
+    @Binding var viewModel: FilterViewModel
     var body: some View {
         NavigationView {
             HStack {
@@ -87,6 +67,7 @@ struct FilterView: View {
         }
     }
 }
+
 struct FilterSection<Content: View>: View {
     let title: String
     let content: Content

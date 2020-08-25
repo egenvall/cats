@@ -22,7 +22,7 @@ class BreedOverviewViewModel: ObservableObject {
         filterModel.objectWillChange.sink(receiveValue: { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 print("Filter Model Changed")
-                self.applyAttributeFilters(self.filterModel.attributeModel.tags.filter { $0.isActive }.map { $0.tag.title })
+                self.applyAttributeFilters(self.filterModel.attributeModel.items.filter { $0.isActive }.map { $0.title })
             }
             
         }).store(in: &disposables)

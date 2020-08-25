@@ -5,9 +5,9 @@ import SwiftUI
  
  */
 
-struct TagCloudView: View {
-    @ObservedObject var viewModel: ObservableTags
-
+struct TagCloudView<Model>: View where Model: TagList {
+    //@ObservedObject var viewModel: ObservableTags
+    @ObservedObject var viewModel: Model
     @State private var totalHeight
      //     = CGFloat.zero       // << variant for ScrollView/List
        = CGFloat.infinity   // << variant for VStack
@@ -25,10 +25,12 @@ struct TagCloudView: View {
     private func generateContent(in g: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
-
         return ZStack(alignment: .topLeading) {
-            ForEach(self.viewModel.tags, id: \.self.tag.title) { model in
-                TagItemView(item: model)
+            ForEach(self.viewModel.items.indices) { index in
+                TagItemView(item: $viewModel.items[index])
+          //  }
+//            ForEach(self.viewModel.items, id: \.self.title) { model in
+//                TagItemView(item: $viewModel.items[0])
                 //self.item(for: tag)
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
@@ -38,7 +40,7 @@ struct TagCloudView: View {
                             height -= d.height
                         }
                         let result = width
-                        if model.tag.title == self.viewModel.tags.last?.tag.title {
+                        if viewModel.items[index].title == self.viewModel.items.last?.title {
                             width = 0 //last item
                         } else {
                             width -= d.width
@@ -47,7 +49,7 @@ struct TagCloudView: View {
                     })
                     .alignmentGuide(.top, computeValue: {d in
                         let result = height
-                        if model.tag.title == self.viewModel.tags.last?.tag.title {
+                        if viewModel.items[index].title == self.viewModel.items.last?.title {
                             height = 0 // last item
                         }
                         return result
@@ -68,22 +70,22 @@ struct TagCloudView: View {
 }
 
 struct TagItemView: View {
-    @ObservedObject var item: ObservableTagViewModel
+    @Binding var item: TagItem
     var backgroundItem: some View {
-        switch item.tag.style {
-        case .capsule: return AnyView(Capsule().fill(item.isActive ? item.tag.activeBgColor : item.tag.passiveBgColor))
-        case .roundedCorners(let radius): return AnyView(RoundedRectangle(cornerRadius: radius).fill(item.isActive ? item.tag.activeBgColor : item.tag.passiveBgColor))
+        switch item.style {
+        case .capsule: return AnyView(Capsule().fill(item.isActive ? item.activeBgColor : item.passiveBgColor))
+        case .roundedCorners(let radius): return AnyView(RoundedRectangle(cornerRadius: radius).fill(item.isActive ? item.activeBgColor : item.passiveBgColor))
         }
     }
     var body: some View {
-        return Text(item.tag.title)
+        return Text(item.title)
             .padding([.vertical], 5)
             .padding([.horizontal], 10)
             .font(.body)
             .background(backgroundItem).animation(.easeOut)
             .foregroundColor(Color.white)
             .onTapGesture {
-                print("Tapped: \(item.tag.title)")
+                print("Tapped: \(item.title)")
                 item.isActive.toggle()
             }
     }
