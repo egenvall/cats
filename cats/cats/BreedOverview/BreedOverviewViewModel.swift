@@ -21,8 +21,7 @@ class BreedOverviewViewModel: ObservableObject {
         
         filterModel.objectWillChange.sink(receiveValue: { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                print("Filter Model Changed")
-                self.applyAttributeFilters(self.filterModel.attributeModel.filter { $0.isActive }.map { $0.title })
+                self.applyFilters(self.filterModel.attributes.filter { $0.isActive }.map { $0.title }, traitFilters: self.filterModel.traits.filter { $0.isActive }.map { $0.title })
             }
             
         }).store(in: &disposables)
@@ -30,15 +29,50 @@ class BreedOverviewViewModel: ObservableObject {
     
     
     private func filterBreeds(_ query: String) {
-        print("Filter with query: \(query)")
         guard !query.isEmpty else {
             breeds = allBreeds
             return
         }
         breeds = allBreeds.filter { $0.name.contains(query) }
     }
-    private func applyAttributeFilters(_ attributeFilters: [String]) {
-        breeds = allBreeds.filter { Set([$0.mainAttribute]).isSubset(of: attributeFilters)}
+    private func applyFilters(_ attributeFilters: [String], traitFilters: [String]) {
+        guard !attributeFilters.isEmpty || !traitFilters.isEmpty else {
+            breeds = allBreeds
+            return
+        }
+        breeds = allBreeds.filter { mainAttributeFilter($0.mainAttribute, filters: attributeFilters)}.filter { Set(traitFilters).isSubset(of: $0.temperaments) }
+    }
+    private func mainAttributeFilter(_ attribute: String, filters: [String]) -> Bool {
+        // When no attribute filters are applied, we want to show breeds of all attributes.
+        guard !filters.isEmpty else {
+            return true
+        }
+        // Main category should be a subset of the filters.
+        return Set([attribute]).isSubset(of: filters)
+    }
+    
+    /**
+     traits: The traits of a specific breed.
+     filters: The selected trait filters
+     
+     returns true when filters is empty or filters is a subset of traits
+        
+     ---- Example ----
+     traits: [A, B, C, D, E]
+     filters: [C]
+     returns true
+     
+     filters: [F]
+     returns false.
+     
+     
+                
+     */
+    private func traitFilter(_ traits: [String], filters: [String]) -> Bool {
+        guard !filters.isEmpty else {
+            return true
+        }
+        return Set(filters).isSubset(of: Set(traits))
     }
     func search(_ query: String) {
         searchText = query

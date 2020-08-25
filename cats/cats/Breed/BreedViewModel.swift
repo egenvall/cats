@@ -10,10 +10,11 @@ final class BreedViewModel: ObservableObject, Identifiable {
         return breed.name
     }
     var temperamentDescription: String {
-        let capitalized = breed.temperament.map { $0.capitalized }
-        return capitalized.reduce("", { $0 == "" ? $1 : $0 + "," + $1 })
+        return temperaments.reduce("", { $0 == "" ? $1 : $0 + ", " + $1 })
     }
-    
+    var temperaments: [String] {
+        return breed.temperament.map { $0.capitalized }
+    }
     var mainAttribute: String {
         return breed.attributes.max { a, b in a.scale.rawValue < b.scale.rawValue }?.attribute.rawValue ?? maxRatedAttribute
     }

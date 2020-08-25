@@ -10,6 +10,9 @@
 		C8171A5F24EEB218002020E4 /* SwiftlySearch in Frameworks */ = {isa = PBXBuildFile; productRef = C8171A5E24EEB218002020E4 /* SwiftlySearch */; };
 		C8171A6224EFB366002020E4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8171A6124EFB366002020E4 /* FilterView.swift */; };
 		C8171A6424EFB9C7002020E4 /* TagCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8171A6324EFB9C7002020E4 /* TagCloud.swift */; };
+		C8171A6924F527F3002020E4 /* TagItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8171A6824F527F3002020E4 /* TagItem.swift */; };
+		C8171A6B24F52831002020E4 /* TagHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8171A6A24F52831002020E4 /* TagHolder.swift */; };
+		C8171A6D24F528CF002020E4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8171A6C24F528CF002020E4 /* FilterViewModel.swift */; };
 		C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1324ED400900A4AA8C /* AppDelegate.swift */; };
 		C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1524ED400900A4AA8C /* SceneDelegate.swift */; };
 		C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8799F1724ED400900A4AA8C /* ContentView.swift */; };
@@ -51,6 +54,9 @@
 /* Begin PBXFileReference section */
 		C8171A6124EFB366002020E4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		C8171A6324EFB9C7002020E4 /* TagCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloud.swift; sourceTree = "<group>"; };
+		C8171A6824F527F3002020E4 /* TagItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagItem.swift; sourceTree = "<group>"; };
+		C8171A6A24F52831002020E4 /* TagHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagHolder.swift; sourceTree = "<group>"; };
+		C8171A6C24F528CF002020E4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		C8799F1024ED400900A4AA8C /* cats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8799F1324ED400900A4AA8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8799F1524ED400900A4AA8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,9 +113,36 @@
 		C8171A6024EFB350002020E4 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				C8171A6124EFB366002020E4 /* FilterView.swift */,
+				C8171A6724F527DC002020E4 /* View */,
+				C8171A6624F527D7002020E4 /* ViewModel */,
+				C8171A6524F527D1002020E4 /* Model */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		C8171A6524F527D1002020E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8171A6824F527F3002020E4 /* TagItem.swift */,
+				C8171A6A24F52831002020E4 /* TagHolder.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C8171A6624F527D7002020E4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8171A6C24F528CF002020E4 /* FilterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8171A6724F527DC002020E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8171A6124EFB366002020E4 /* FilterView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C8799F0724ED400900A4AA8C = {
@@ -388,14 +421,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8171A6D24F528CF002020E4 /* FilterViewModel.swift in Sources */,
 				C8171A6224EFB366002020E4 /* FilterView.swift in Sources */,
 				C8799F4524ED41A400A4AA8C /* Breed.swift in Sources */,
 				C8799F1424ED400900A4AA8C /* AppDelegate.swift in Sources */,
 				C8799F1624ED400900A4AA8C /* SceneDelegate.swift in Sources */,
+				C8171A6B24F52831002020E4 /* TagHolder.swift in Sources */,
 				C8799F7324EDA27300A4AA8C /* ColorExtension.swift in Sources */,
 				C8799F5B24ED4F1C00A4AA8C /* ApiKeyService.swift in Sources */,
 				C8171A6424EFB9C7002020E4 /* TagCloud.swift in Sources */,
 				C8799F6A24ED930E00A4AA8C /* BreedViewModel.swift in Sources */,
+				C8171A6924F527F3002020E4 /* TagItem.swift in Sources */,
 				C8799F6724ED5D6300A4AA8C /* BreedOverviewViewModel.swift in Sources */,
 				C8799F6F24ED99ED00A4AA8C /* CornerRadius.swift in Sources */,
 				C8799F1824ED400900A4AA8C /* ContentView.swift in Sources */,

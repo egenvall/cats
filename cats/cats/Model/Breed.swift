@@ -37,10 +37,9 @@ struct Breed: Codable, Equatable, Identifiable {
         id = try values.decode(String.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
         description = try values.decode(String.self, forKey: .description)
-       // weight = try values.decode(String.self, forKey: .weight)
 
         let temperamentString = try values.decode(String.self, forKey: .temperament)
-        temperament = temperamentString.components(separatedBy: ",")
+        temperament = temperamentString.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines)}
 
         // Attributes
         let intelligenceRating = try values.decode(BreedAttributeScale.self, forKey: .intelligence)

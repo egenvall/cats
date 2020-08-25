@@ -1,29 +1,44 @@
 import SwiftUI
+import Combine
+enum TagCloudConfig {
+    case stack, scrollable
+}
 
 /*
   Base implementation for TagCloudView provided by Asperi: https://stackoverflow.com/questions/62102647/swiftui-hstack-with-wrap-and-dynamic-height
  
  */
 
+
 struct TagCloudView: View {
     @Binding var viewModel: [TagItem]
     @State private var totalHeight = CGFloat.infinity
-
+    
     var body: some View {
         VStack {
-            GeometryReader { geometry in
-                self.generateContent(in: geometry)
+            if viewModel.isEmpty {
+                EmptyView()
             }
+            else {
+                GeometryReader { geometry in
+                    self.generateContent(in: geometry)
+                }
+            }
+            
         }
-        .frame(maxHeight: totalHeight)
+        .frame(height: totalHeight)
     }
 
+    
     private func generateContent(in g: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
+        print("Tags Count: \(viewModel.count)")
         return ZStack(alignment: .topLeading) {
-            ForEach(self.viewModel.indices) { index in
-                TagItemView(item: $viewModel[index])
+            ForEach(self.viewModel, id: \.self.id) { tag in
+                let tagIndex = viewModel.firstIndex(where: { $0.id == tag.id })
+               
+                TagItemView(item: $viewModel[tagIndex!])
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
                         if (abs(width - d.width) > g.size.width)
@@ -32,7 +47,7 @@ struct TagCloudView: View {
                             height -= d.height
                         }
                         let result = width
-                        if viewModel[index].title == self.viewModel.last?.title {
+                        if viewModel[tagIndex!].title == self.viewModel.last?.title {
                             width = 0 //last item
                         } else {
                             width -= d.width
@@ -41,7 +56,7 @@ struct TagCloudView: View {
                     })
                     .alignmentGuide(.top, computeValue: {d in
                         let result = height
-                        if viewModel[index].title == self.viewModel.last?.title {
+                        if viewModel[tagIndex!].title == self.viewModel.last?.title {
                             height = 0 // last item
                         }
                         return result
@@ -49,6 +64,7 @@ struct TagCloudView: View {
             }
         }.background(viewHeightReader($totalHeight))
     }
+    
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         return GeometryReader { geometry -> Color in
