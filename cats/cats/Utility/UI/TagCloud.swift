@@ -12,7 +12,7 @@ enum TagCloudConfig {
 
 struct TagCloudView: View {
     @Binding var viewModel: [TagItem]
-    @State private var totalHeight = CGFloat.infinity
+    @State private var totalHeight: CGFloat = 1000 // Arbitrary height, calculated later.
     
     var body: some View {
         VStack {

@@ -63,7 +63,7 @@ struct FilterSection<Content: View>: View {
                 }) {
                     Image(systemName: "questionmark.circle")
                 }.actionSheet(isPresented: $isPresentingDetail, content: { actionSheet })
-
+                
             }
             content
         }
