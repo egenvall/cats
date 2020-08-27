@@ -20,7 +20,7 @@ struct FilterView: View {
                 }
             }
             
-            .padding().navigationTitle("Filter")
+            .padding().navigationTitle("Results: \(viewModel.resultCount)")
         }
     }
 }

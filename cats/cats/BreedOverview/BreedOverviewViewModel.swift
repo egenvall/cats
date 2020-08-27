@@ -7,23 +7,25 @@ class BreedOverviewViewModel: ObservableObject {
     private let scheduler = DispatchQueue(label: "BreedOverviewModel")
     private var allBreeds: [BreedViewModel] = []
     
-    @Published var filterModel: FilterViewModel = FilterViewModel()
+    @Published var filterModel: FilterViewModel
     @Published var breeds: [BreedViewModel] = []
     @Published var searchText: String = ""
     @Published var isDisplayingFilter: Bool = false
     
     init() {
+        filterModel = FilterViewModel()
         $searchText
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: scheduler)
             .sink(receiveValue: filterBreeds(_:))
             .store(in: &disposables)
         
-        filterModel.objectWillChange.sink(receiveValue: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                self.applyFilters(self.filterModel.attributes.filter { $0.isActive }.map { $0.title }, traitFilters: self.filterModel.traits.filter { $0.isActive }.map { $0.title })
-            }
-            
+        filterModel.$attributes.combineLatest(filterModel.$traits).sink(receiveValue: { (attributes, traits) in
+            self.applyFilters(attributes.filter { $0.isActive }.map { $0.title }, traitFilters: traits.filter { $0.isActive }.map { $0.title })
+        }).store(in: &disposables)
+        
+        $breeds.sink(receiveValue: { models in
+            self.filterModel.resultCount = models.count
         }).store(in: &disposables)
     }
     

@@ -33,7 +33,6 @@ struct TagCloudView: View {
     private func generateContent(in g: GeometryProxy) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
-        print("Tags Count: \(viewModel.count)")
         return ZStack(alignment: .topLeading) {
             ForEach(self.viewModel, id: \.self.id) { tag in
                 let tagIndex = viewModel.firstIndex(where: { $0.id == tag.id })

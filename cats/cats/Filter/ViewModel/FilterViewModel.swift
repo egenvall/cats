@@ -3,11 +3,15 @@ import SwiftUI
 class FilterViewModel: ObservableObject {
     @Published var attributes: [TagItem] = []
     @Published var traits: [TagItem] = []
+    @Published var resultCount: Int = 0
     private var disposables = Set<AnyCancellable>()
     
     func configure(_ breedViewModels: [BreedViewModel]) {
         assignMainAttributeFilters(breedViewModels)
         assignTraitFilters(breedViewModels)
+    }
+    func updateResults(_ results: Int) {
+        resultCount = results
     }
 }
 
