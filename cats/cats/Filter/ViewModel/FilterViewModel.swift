@@ -4,6 +4,9 @@ class FilterViewModel: ObservableObject {
     @Published var attributes: [TagItem] = []
     @Published var traits: [TagItem] = []
     @Published var resultCount: Int = 0
+    @Published var isPresentingFilterInformation: Bool = false
+    @Published var isPresentingTraitInformation: Bool = false
+
     private var disposables = Set<AnyCancellable>()
     
     func configure(_ breedViewModels: [BreedViewModel]) {
