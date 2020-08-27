@@ -6,7 +6,7 @@ struct ContentView: View {
     @State var searchText = ""
     var body: some View {
         NavigationView {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: layout, spacing: 20) {
                     ForEach(viewModel.breeds.filter {
                         return searchText.isEmpty ? true : $0.name.contains(searchText)
@@ -42,7 +42,12 @@ extension ContentView {
 struct BreedTemperamentView: View {
     let temperament: String
     var body: some View {
-        Text(temperament).padding(5).lineLimit(1).background(Color(UIColor.systemBlue)).cornerRadius(8).foregroundColor(.white)
+        Text(temperament)
+            .padding(5)
+            .lineLimit(1)
+            .background(Color(UIColor.systemBlue))
+            .cornerRadius(8)
+            .foregroundColor(.white)
     }
 }
 

@@ -11,6 +11,7 @@ struct FilterView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack {
                     VStack(alignment: .leading) {
+                        Spacer(minLength: 16)
                         FilterSection(title: "Main Attribute",
                                       detail: FilterDetail(title: "Main Attribute",
                                                            message: "Include all breeds whose main attribute is one of the selected")){
@@ -26,7 +27,7 @@ struct FilterView: View {
                 }
             }
             
-            .padding().navigationTitle("Results: \(viewModel.resultCount)")
+            .padding([.horizontal]).navigationTitle("Results: \(viewModel.resultCount)")
         }
     }
 }
