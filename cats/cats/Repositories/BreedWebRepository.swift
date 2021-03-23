@@ -16,12 +16,11 @@ protocol BreedWebRepository {
 final class RealBreedWebRepository: BreedWebRepository {
     static let shared = RealBreedWebRepository()
     let apiKeyService = ApiKeyService()
+    private init() {
+        
+    }
     func loadFullBreeds() -> AnyPublisher<([Breed]), Error> {
         let breedRequest = loadBreeds()
-//        let imagePublishers = breedRequest.flatMap { breedList in
-//            return Publishers.MergeMany(breedList.map { self.fetchImage(for: $0.id )}).collect()
-//        }
-//        return Publishers.Zip(breedRequest, imagePublishers).eraseToAnyPublisher()
         return breedRequest.eraseToAnyPublisher()
     }
     func loadBreeds() -> AnyPublisher<[Breed], Error> {
@@ -84,8 +83,6 @@ final class RealBreedWebRepository: BreedWebRepository {
         }
         .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
-        
-        //return Result.Publisher((breedId, "https://wallup.net/wp-content/uploads/2018/03/19/578332-cat-animals-insect-nature-butterfly-748x527.jpg")).eraseToAnyPublisher()
     }
 }
 

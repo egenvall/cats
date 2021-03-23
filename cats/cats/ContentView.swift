@@ -1,9 +1,22 @@
 import SwiftUI
 import SwiftlySearch
+
+enum BreedDetailAnimationKeys: String {
+    case title
+}
+struct BreedDetailView: View {
+    @ObservedObject var viewModel: BreedViewModel
+    @Namespace private var animation
+    var body: some View {
+        Text(viewModel.name).matchedGeometryEffect(id: BreedDetailAnimationKeys.title, in: animation)
+    }
+}
 struct ContentView: View {
+    @Namespace private var BreedDetailAnimation
     @ObservedObject var viewModel = BreedOverviewViewModel()
     var layout = [ GridItem(.flexible()) ]
     @State var searchText = ""
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -11,11 +24,16 @@ struct ContentView: View {
                     ForEach(viewModel.breeds.filter {
                         return searchText.isEmpty ? true : $0.name.contains(searchText)
                         
-                    }) {
-                        BreedItemView(viewModel: $0)
+                    }) { item in
+                        
+                        BreedItemView(viewModel: item).onTapGesture {
+                            print("Tapped \(item.name)")
+                        }
+                        
                     }
                 }.padding().animation(.easeOut)
-            }.onAppear(perform: {
+            }
+            .onAppear(perform: {
                 self.viewModel.fetchBreeds()
             }).navigationTitle("Breeds")
             .navigationBarSearch(self.$searchText)
@@ -69,6 +87,7 @@ struct MainAttributeView: View {
 
 struct BreedItemView: View {
     @ObservedObject var viewModel: BreedViewModel
+    @Namespace private var animation
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color(UIColor.systemBackground)).shadow(radius: 4.0)
@@ -78,6 +97,8 @@ struct BreedItemView: View {
                         Text(viewModel.name).font(.title).bold()
                             .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
+                            .foregroundColor(Color(UIColor.label))
+                            .matchedGeometryEffect(id: BreedDetailAnimationKeys.title, in: animation)
                         Spacer()
                         MainAttributeView(viewModel: viewModel).fixedSize()
                         

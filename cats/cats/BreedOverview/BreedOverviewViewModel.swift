@@ -11,6 +11,7 @@ class BreedOverviewViewModel: ObservableObject {
     @Published var breeds: [BreedViewModel] = []
     @Published var searchText: String = ""
     @Published var isDisplayingFilter: Bool = false
+    @Published var isDisplayingBreedDetail: Bool = false
     
     init() {
         filterModel = FilterViewModel()
